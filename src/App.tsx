@@ -6,7 +6,7 @@ import Landing from './pages/Landing';
 import { Toaster } from "@/components/ui/sonner"
 import DashboardHome from './pages/DashboardHome';
 import ProjectProtectionFunc from './utils/ProjectProtection';
-import SwitchProject from './pages/switchproject';
+import SwitchProject from './pages/SwitchProject';
 
 function App() {
 ProjectProtectionFunc()

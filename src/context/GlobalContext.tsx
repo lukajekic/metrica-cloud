@@ -37,18 +37,20 @@ export function UserDataProvider({children}) {
           clearTimeout(tiemout)
           setOpenCSModal(false)
           setUserData(response.data);
+          setLoading(false)
         }
       } catch (error) {
         clearTimeout(tiemout)
           setOpenCSModal(false)
         console.error("Error fetching user data:", error);
+        setLoading(false)
       }
     }
 
     fetchUser();
   }, []);
     return (<>
-        <UserDataContext.Provider value={{userData, setUserData}}>{children}</UserDataContext.Provider>
+        <UserDataContext.Provider value={{userData, setUserData, loading}}>{children}</UserDataContext.Provider>
 
 
 

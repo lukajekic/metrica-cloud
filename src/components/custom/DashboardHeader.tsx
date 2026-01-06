@@ -23,7 +23,7 @@ const DashboardHeader = () => {
   const {userData, setUserData} = useUserData()
   const {ProjectsGlobal} = useProjectsGlobal()
   const [waitlistcount, setwaitlistcount] = useState(null)
-  const [dropdownactiveid, setdropdownactiveid] = useState(null)
+  const [dropdownactiveid, setdropdownactiveid] = useState(undefined)
 
   useEffect(()=>{
 const fetchCountofWaitlist = async()=>{
@@ -61,9 +61,9 @@ setdropdownactiveid(ProjectsGlobal.filter(item => item._id === activeproject)[0]
                 <H3>Metrica Cloud</H3>
 
                 <div id="projectpicker" className='ml-4'>
-                    <Select  onValueChange={(projectid)=>{location.href = `/switch?id=${projectid}`}} value={dropdownactiveid}>
+                    <Select  onValueChange={(projectid)=>{location.href = `/switch?id=${projectid}`}}  value={dropdownactiveid}>
       <SelectTrigger className="w-[180px]">
-        <SelectValue  placeholder="Select a project" />
+        <SelectValue   placeholder="Select a project" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
