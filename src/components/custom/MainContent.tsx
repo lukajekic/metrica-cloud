@@ -1,8 +1,8 @@
 import React from 'react'
-import { SidebarProvider, SidebarTrigger } from './ui/sidebar'
-import { AppSidebar } from './ui/app-sidebar'
-import { Button } from './ui/button'
-import { Bolt, Cog, Crown, Eye, Layers, MapPin, Pointer, SquareDashedMousePointer, SquareUser, Star, TrendingUp } from 'lucide-react'
+import { SidebarProvider, SidebarTrigger } from '../ui/sidebar'
+import { AppSidebar } from '../ui/app-sidebar'
+import { Button } from '../ui/button'
+import { Bolt, Cog, Crown, Eye, File, Layers, MapPin, Pointer, SquareDashedMousePointer, SquareUser, Star, TrendingUp } from 'lucide-react'
 import { SidebarVisibility } from '@/utils/ShowSidebar'
 interface Props {
     enforceProtection: boolean,
@@ -20,7 +20,7 @@ const sidebarItems:sidebarItem[] = [
    {
     icon: <Eye></Eye>,
     label: 'Page Views',
-    link: '/dashboard/pages/views',
+    link: '/dashboard/page/views',
     parent: 'pages'
    },
 
@@ -55,7 +55,7 @@ const sidebarItems:sidebarItem[] = [
    {
     icon: <Bolt></Bolt>,
     label: 'Configuration',
-    link: '/dashboard/pages/configuration',
+    link: '/dashboard/page/configuration',
     parent: 'pages'
    },
 
@@ -118,7 +118,7 @@ const MainContent:React.FC<Props> = ({enforceProtection, children}) => {
         
         {/* Sidebar: h-full ovde znači visinu preostalog prostora */}
         {sidebarVisibility && (
-            <div className="w-fit bg-white pr-4 pl-3  pt-4 h-full flex-shrink-0 border-r-1 border-r-gray-700/15">
+            <div className="w-fit bg-white pr-4 pl-3  pt-4 h-full flex-shrink-0 border-r-1 border-r-gray-700/15 overflow-y-auto">
         
 
 
@@ -153,7 +153,10 @@ const MainContent:React.FC<Props> = ({enforceProtection, children}) => {
 
 
 <div id="sidebarspacer" className='my-5 border-t-1 border-t-gray-700/20'></div>
-<Button variant={'outline'} className='w-full'><SquareUser></SquareUser> My Profile</Button>
+<div className="flex flex-col gap-3">
+    <Button variant={'outline'} className='flex justify-start'><SquareUser></SquareUser> My Profile</Button>
+<Button variant={'outline'} className='flex justify-start'><File></File> Documentation</Button>
+</div>
 
 
 

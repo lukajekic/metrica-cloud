@@ -56,7 +56,7 @@ setdropdownactiveid(ProjectsGlobal.filter(item => item._id === activeproject)[0]
   return (
     <div className='dashboard-header w-full border-b-1 border-b-gray-700/20 h-[60px] fixed  left-0 top-0 right-0 bg-white'>
         <div className='w-[100%] px-4  h-[60px] flex justify-between items-center m-auto '>
-        <div className="flex items-center gap-4">
+        <div onClick={()=>{location.href = '/dashboard/home'}} className="flex items-center gap-4 hover:cursor-pointer">
                     <MetricaLogo ></MetricaLogo>
                 <H3>Metrica Cloud</H3>
 

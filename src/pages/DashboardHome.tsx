@@ -1,7 +1,7 @@
 import DashboardBlock from '@/components/custom/DashboardBlock'
 import DashboardHeader from '@/components/custom/DashboardHeader'
 import DashboardPageTitle from '@/components/custom/DashboardPageTitle'
-import MainContent from '@/components/MainContent'
+import MainContent from '@/components/custom/MainContent'
 import { Button } from '@/components/ui/button'
 import { useProjectsGlobal, useUserData } from '@/context/GlobalContext'
 import React from 'react'

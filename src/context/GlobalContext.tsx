@@ -90,7 +90,7 @@ export function ProjectsGlobalProvider({children}) {
   useEffect(()=>{
    async function fetchProjects() {
      try {
-      const response = await axios.get(`${import.meta.env.VITE_BACKEND}/metrica/project`)
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND}/metrica/project/get`)
       if (response.status === 200) {
         setProjectsGlobal(response.data)
       }

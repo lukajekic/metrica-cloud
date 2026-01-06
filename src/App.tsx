@@ -7,6 +7,8 @@ import { Toaster } from "@/components/ui/sonner"
 import DashboardHome from './pages/DashboardHome';
 import ProjectProtectionFunc from './utils/ProjectProtection';
 import SwitchProject from './pages/SwitchProject';
+import DashboardPageViews from './pages/DashboardPageViews';
+import DashboardPageConfig from './pages/DashboardPageConfig/DashboardPageConfig';
 
 function App() {
 ProjectProtectionFunc()
@@ -19,6 +21,8 @@ ProjectProtectionFunc()
       <Route path='/' element={<Landing></Landing>}></Route>
       <Route path='/switch' element={<SwitchProject></SwitchProject>}></Route>
       <Route path='/dashboard/home' element={<DashboardHome></DashboardHome>}></Route>
+      <Route path='/dashboard/page/views' element={<DashboardPageViews></DashboardPageViews>}></Route>
+      <Route path='/dashboard/page/configuration' element={<DashboardPageConfig></DashboardPageConfig>}></Route>
       <Route path='/dashboard/dev' element={<p>dev</p>}></Route>
     </Routes>
     </BrowserRouter>
