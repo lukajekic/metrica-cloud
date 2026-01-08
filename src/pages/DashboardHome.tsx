@@ -12,7 +12,7 @@ const DashboardHome = () => {
   return (
     <div id='dashboard-home' className='max-w'>
         <DashboardHeader></DashboardHeader>
-        <MainContent enforceProtection >
+        <MainContent > {/* nema project protection jer ne zhteva projekat */}
           <DashboardPageTitle title='My Projects' subtitle='Select a Project to expand options.'></DashboardPageTitle>
           <div className="grid grid-cols-4 gap-5">
             {ProjectsGlobal.map(item=>{

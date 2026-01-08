@@ -75,7 +75,7 @@ setdropdownactiveid(ProjectsGlobal.filter(item => item._id === activeproject)[0]
             )
           })}
 
-          <Button className='w-full'><PlusSquare></PlusSquare> New Project</Button>
+          <Button className='w-full mt-2'><PlusSquare></PlusSquare> New Project</Button>
         </SelectGroup>
       </SelectContent>
     </Select>

@@ -91,8 +91,10 @@ export function ProjectsGlobalProvider({children}) {
    async function fetchProjects() {
      try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND}/metrica/project/get`)
-      if (response.status === 200) {
+      if (response.status === 200 && response.data && response.data.length > 0) {
         setProjectsGlobal(response.data)
+      } else if (location.pathname !== '/project/create' && location.pathname.includes('dashboard')) {
+        location.href = '/project/create'
       }
     } catch (error) {
       console.error(error)

@@ -4,8 +4,9 @@ import { AppSidebar } from '../ui/app-sidebar'
 import { Button } from '../ui/button'
 import { Bolt, Cog, Crown, Eye, File, Layers, MapPin, Pointer, SquareDashedMousePointer, SquareUser, Star, TrendingUp } from 'lucide-react'
 import { SidebarVisibility } from '@/utils/ShowSidebar'
+import ProjectProtectionFunc from '@/utils/ProjectProtection'
 interface Props {
-    enforceProtection: boolean,
+    enforceProtection?: boolean,
     children?: React.ReactNode
 }
 
@@ -27,7 +28,7 @@ const sidebarItems:sidebarItem[] = [
    {
     icon: <MapPin></MapPin>,
     label: 'Geolocation',
-    link: '/dashboard/pages/geolocation',
+    link: '/dashboard/page/geolocation',
     parent: 'pages'
    },
 
@@ -110,6 +111,9 @@ const sidebarItems:sidebarItem[] = [
 
 
 const MainContent:React.FC<Props> = ({enforceProtection, children}) => {
+    if (enforceProtection) {
+        ProjectProtectionFunc()
+    }
     const sidebarVisibility = SidebarVisibility()
   return (
     <div className='w-full pt-[60px] h-screen bg-green-200 flex flex-col'>

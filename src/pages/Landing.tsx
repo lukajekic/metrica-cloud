@@ -37,19 +37,29 @@ const Landing = () => {
     email: "",
     password: ""
   })
+
+    const [acceptData, setAcceptData] = useState({
+    email: "",
+    license: ""
+  })
   const [loginDialogOpen, setLoginDialogOpen] = useState(false)
+    const [acceptDialogOpen, setAcceptDialogOpen] = useState(false)
+
   const loginPasswordField = useRef(null)
   const loginEmailField = useRef(null)
   const [LoadingButtons, setLoadingButtons] = useState({
     subscribebtn: false,
     opendashboardbtn: false,
-    loginsubmitbtn: false
+    loginsubmitbtn: false,
+    acceptsubmitbtn: false
   })
 
   const SetBTNLoadingStatus = (targetID:string, status:boolean)=> {
     if (!targetID || status === undefined) {
         return
     }
+
+
 
     setLoadingButtons(prev =>({...prev, [targetID]: status}))
 
@@ -155,6 +165,8 @@ useEffect(()=>{
 
 
 const [wrongCredentials, setWrongCredentials] = useState(false)
+const [AcceptWrongCredentials, SetAcceptWrongCredentials] = useState(false)
+const [AcceptServerError, setAcceptServerError] = useState(false)
 const HandleLogin = async()=>{
     try {
         SetBTNLoadingStatus('loginsubmitbtn', true)
@@ -173,6 +185,37 @@ const HandleLogin = async()=>{
         if (error.response.status === 400 && error.response.data.message === 'Invalid email, password or 2FA OTP.') {
             SetBTNLoadingStatus('loginsubmitbtn', false)
             setWrongCredentials(true)
+        }
+    }
+}
+
+
+const HandleInvitationAcception = async()=>{
+    try {
+        SetBTNLoadingStatus('acceptsubmitbtn', true)
+        SetAcceptWrongCredentials(false)
+        setAcceptServerError(false)
+        const AuthResponse = await axios.post(`${import.meta.env.VITE_BACKEND}/metrica/waitlist/onboarding`, { //proveri endpoint
+          action: 'onboarding',
+            email: acceptData.email,
+            license: acceptData.license
+        })
+
+
+        if (AuthResponse && AuthResponse.status === 200 && AuthResponse.data.invitationID) {
+            SetBTNLoadingStatus('acceptsubmitbtn', false)
+            console.log('Invitation OK.')
+            console.log('DEV: Nastaviti sa procesom')
+            sessionStorage.setItem('InvitationID', AuthResponse.data.invitationID)
+            location.href = '/account/create/earlyaccess'
+        }
+    } catch (error) {
+        if (error.response.status === 400 && error.response.data.message === 'Invalid.') {
+            SetBTNLoadingStatus('acceptsubmitbtn', false)
+            SetAcceptWrongCredentials(true)
+        } else {
+          SetBTNLoadingStatus('acceptsubmitbtn', false)
+          setAcceptServerError(true)
         }
     }
 }
@@ -645,15 +688,127 @@ This is my first project of 2026, and I’ve started it with care and attention 
       </div>
 
       <DialogFooter>
-        <DialogClose asChild>
-          <Button type="button" variant="outline" onClick={()=>{[setLoginDialogOpen(false), setTimeout(() => {setLoginData({email: "", password: ""})}, 500)]}}>Cancel</Button>
+        <div className="flex justify-between w-full items-center">
+          <Button variant={'ghost'} type='button' onClick={()=>{setAcceptDialogOpen(true)}}>Accept Invitation</Button>
+          <div className='flex items-center gap-2'>
+            <DialogClose asChild>
+          <Button type="button" variant="outline" onClick={()=>{[setAcceptDialogOpen(false), setTimeout(() => {setLoginData({email: "", password: ""})}, 500)]}}>Cancel</Button>
         </DialogClose>
         <Button id='loginsubmitbtn' type="submit">{LoadingButtons.loginsubmitbtn ? (<Spinner></Spinner>) : ('Log In')}</Button>
+          </div>
+        </div>
       </DialogFooter>
     </form>
   </DialogContent>
 </Dialog>
             {/* end login dialog */}
+
+
+
+
+
+
+
+
+
+
+
+
+            {/* accept dialog */}
+            <Dialog open={acceptDialogOpen}>
+
+  <DialogContent className="sm:max-w-[425px]">
+    {/* Formu stavljaš OVDE */}
+    <form onSubmit={(e) => {[
+      e.preventDefault(),
+      HandleInvitationAcception()
+    ]}}>
+      <DialogHeader>
+        <DialogTitle>Accept Invitaion</DialogTitle>
+        <DialogDescription>
+        Enter your Email Adress and License Key.
+        </DialogDescription>
+      </DialogHeader>
+
+
+
+      {AcceptWrongCredentials && (
+        <Alert variant="destructive" className='mt-2'>
+        <AlertCircleIcon />
+        <AlertTitle>Invalid credentials.</AlertTitle>
+        <AlertDescription>
+          <p>Please verify these fields:</p>
+          <ul className="list-inside list-disc text-sm">
+            <li>Email Address</li>
+            <li>License</li>
+
+          <p>Check if you are Accepted for Early Access</p>
+          </ul>
+        </AlertDescription>
+      </Alert>
+      )}
+
+
+
+
+      {AcceptServerError && (
+        <Alert variant="destructive" className='mt-2'>
+        <AlertCircleIcon />
+        <AlertTitle>Error.</AlertTitle>
+        <AlertDescription>
+          <p>Error prevented checking your Invitation, this doesn't mean you aren't accepted, rather other not identified error.</p>
+          <p>Check following:</p>
+          <ul className="list-inside list-disc text-sm">
+            <li>Filling both fields in exact format</li>
+            <li>Receiving Acception Email</li>
+            <li>Having stable Internet connection</li>
+
+
+          <p>We are sorry for any inconvenience.</p>
+          </ul>
+        </AlertDescription>
+      </Alert>
+      )}
+
+      <div className="grid gap-4 py-4">
+        <div className="grid gap-3">
+          <Label htmlFor="accept-email">Email</Label>
+          <Input
+            id="accept-email" 
+            name="accept-email" 
+            type="email" // Dodaj tip za bolju validaciju
+            placeholder="user@mail.com" 
+            required
+            value={acceptData.email}
+            onChange={(e)=>{setAcceptData(prev => ({...prev, email: e.target.value}))}}
+          />
+        </div>
+        <div className="grid gap-3">
+          <Label htmlFor="accept-license">License Key</Label>
+          <Input
+            id="accept-license" 
+            name="accept-license" 
+            type="text" 
+            required 
+            value={acceptData.license}
+            onChange={(e)=>{setAcceptData(prev =>({...prev, license: e.target.value}))}}
+          />
+        </div>
+      </div>
+
+      <DialogFooter>
+            <DialogClose asChild>
+          <Button type="button" variant="outline" onClick={()=>{[setAcceptDialogOpen(false), setTimeout(() => {setAcceptData({email: "", license: ""})}, 500)]}}>Cancel</Button>
+        </DialogClose>
+        <Button id='acceptsubmitbtn' type="submit">{LoadingButtons.acceptsubmitbtn ? (<Spinner></Spinner>) : ('Continue')}</Button>
+      </DialogFooter>
+    </form>
+  </DialogContent>
+</Dialog>
+
+
+
+
     </>
   )
 }
