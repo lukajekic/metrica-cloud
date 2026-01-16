@@ -1,4 +1,5 @@
 # Metrica Cloud
 
 ## Known Problems
-* Landing Page ne preusmerava na Dashboard
+* Delete Project API ne brise children pages, events, pageviews i eventtriggers
+* *Delete User API isn't made and it should only work when none projects are left.
