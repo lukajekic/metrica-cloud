@@ -324,7 +324,7 @@ return {
                     <div className="col-span-4 row-span-2">
                         <DashboardBlock tailwindHeight='h-full' title={`Most Popular Today ${StatsCountryFilter ? (`(${StatsCountryFilter})`) : ('')}`}>
                             <div className="flex flex-col gap-2 h-full justify-evenly">
-                                <H4>Page Title</H4>
+                                <H4 className='hidden'>Page Title</H4>
                                 <a href="/dashboard/home" className='focusable-link flex items-end gap-2 w-fit'>
                                 <H1>{todayStats.total}</H1>
                                 <P>Views</P>
@@ -347,7 +347,7 @@ return {
                     <div className="col-span-2 row-span-2">
                         <DashboardBlock tailwindHeight='h-full' title={`Most Popular last 7 Days ${StatsCountryFilter ? (`(${StatsCountryFilter})`) : ('')}`}>
                             <div className="flex flex-col gap-2 h-full justify-evenly">
-                                <H4>Page Title</H4>
+                                <H4 className='hidden'>Page Title</H4>
                                 <a href="/dashboard/home" className='focusable-link flex items-end gap-2 w-fit'>
                                 <H1>{weekStats.total}</H1>
                                 <P>Views</P>
@@ -370,7 +370,7 @@ return {
                     <div className="col-span-2 row-span-2">
                         <DashboardBlock tailwindHeight='h-full' title={`Most Popular last 30 Days ${StatsCountryFilter ? (`(${StatsCountryFilter})`) : ('')}`}>
                             <div className="flex flex-col gap-2 h-full justify-evenly">
-                                <H4>Page Title</H4>
+                                <H4 className='hidden'>Page Title</H4>
                                 <a href="/dashboard/home" className='focusable-link flex items-end gap-2 w-fit'>
                                 <H1>{monthStats.total}</H1>
                                 <P>Views</P>

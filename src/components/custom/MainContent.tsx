@@ -35,14 +35,14 @@ const sidebarItems:sidebarItem[] = [
    {
     icon: <Crown></Crown>,
     label: 'Dominance',
-    link: '/dashboard/pages/dominance',
+    link: '/dashboard/page/dominance',
     parent: 'pages'
    },
 
    {
     icon: <Star></Star>,
     label: 'Top Pages',
-    link: '/dashboard/pages/top',
+    link: '/dashboard/page/top',
     parent: 'pages'
    },
 
@@ -158,8 +158,8 @@ const MainContent:React.FC<Props> = ({enforceProtection, children}) => {
 
 <div id="sidebarspacer" className='my-5 border-t-1 border-t-gray-700/20'></div>
 <div className="flex flex-col gap-3">
-    <Button variant={'outline'} className='flex justify-start'><SquareUser></SquareUser> My Profile</Button>
-<Button variant={'outline'} className='flex justify-start'><File></File> Documentation</Button>
+    <Button onClick={()=>{location.href = '/dashboard/profile'}} variant={'outline'} className='flex justify-start'><SquareUser></SquareUser> My Profile</Button>
+<a href="https://metrica-docs.gitbook.io/" target='_blank' className='flex justify-start'><Button variant={'outline'} className='w-full flex justify-start'><File></File> Documentation</Button></a>
 </div>
 
 

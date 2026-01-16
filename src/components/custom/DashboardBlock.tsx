@@ -1,7 +1,7 @@
 import React from 'react'
 
 interface Props {
-    title: string,
+    title?: string,
     children?: React.ReactNode,
     tailwindHeight?: string,
 }

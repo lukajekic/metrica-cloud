@@ -62,7 +62,7 @@ export function UserDataProvider({children}) {
 
         <Dialog open={openCSModal}>
   
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] [&>button:last-child]">
        
           <div className="flex flex-col gap-2 items-center">
             <HardDrive className='size-15'></HardDrive>
@@ -93,8 +93,8 @@ export function ProjectsGlobalProvider({children}) {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND}/metrica/project/get`)
       if (response.status === 200 && response.data && response.data.length > 0) {
         setProjectsGlobal(response.data)
-      } else if (location.pathname !== '/project/create' && location.pathname.includes('dashboard')) {
-        location.href = '/project/create'
+      } else if (location.pathname !== '/dashboard/projects/create' && location.pathname.includes('dashboard')) {
+        location.href = '/dashboard/projects/create'
       }
     } catch (error) {
       console.error(error)

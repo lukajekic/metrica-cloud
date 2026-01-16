@@ -10,14 +10,14 @@ export function ProjectProtectionFunc():void  {
     const path = window.location.pathname
     const usersprojets = userData?.projects
     let projectowner:boolean = null
-    
-    if (!projectID && path.includes('dashboard') && path !== '/dashboard/home') {
+    const whitelistedPaths = ['/dashboard/home', '/dashboard/projects/create']
+    if (!projectID && path.includes('dashboard') && !whitelistedPaths.includes(path)) {
         sessionStorage.setItem('ActiveProject', '')
         console.warn('Force returning to dashboard home, reason: Trying to access project ID depedendent pages without selected project in  session storage')
         window.location.href = '/dashboard/home'
     } else if (projectID) {
         projectowner = usersprojets?.includes(projectID)
-        if (!projectowner && path.includes('dashboard') && path !== '/dashboard/home') {
+        if (!projectowner && path.includes('dashboard') && !whitelistedPaths.includes(path)) {
             console.log(usersprojets)
             sessionStorage.setItem('ActiveProject', '')
                     console.warn('Force returning to dashboard home, reason: Trying to access project ID depedendent pages with invalid project ID or project with other owner.')

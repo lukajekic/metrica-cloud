@@ -2,23 +2,18 @@ import React from 'react'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
 import { Info } from 'lucide-react'
 
-
 interface Props {
-    text: string
+  text: string
 }
 
-
-
-
-
-const MetricaTooltip:React.FC<Props> = ({text}) => {
+const MetricaTooltip: React.FC<Props> = ({ text }) => {
   return (
-     <Tooltip>
+    <Tooltip>
       <TooltipTrigger asChild>
-        <Info>Info</Info>
+        <Info />
       </TooltipTrigger>
-      <TooltipContent>
-        <p>{text}</p>
+      <TooltipContent className="w-auto max-w-xs">
+        <p className="whitespace-normal">{text}</p>
       </TooltipContent>
     </Tooltip>
   )
