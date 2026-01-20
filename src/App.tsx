@@ -17,6 +17,8 @@ import DashboardPageDominance from './pages/DashboardPageDominance/DashboardPage
 import PrintApiKey from './pages/PrintApiKey';
 import MyProfile from './pages/MyProfile';
 import DashboardPagesTop from './pages/DashboardPagesTop/DashboardPagesTop';
+import DashboardEventConfig from './pages/DashboardEventConfig/DashboardEventConfig';
+import DashboardEventTriggers from './pages/DashboardEventTriggers/DashboardEventTriggers';
 
 function App() {
   return (
@@ -39,6 +41,15 @@ function App() {
       <Route path='/apikeyprint' element={<PrintApiKey></PrintApiKey>}></Route>
       <Route path='/dashboard/waitlist' element={<Waitlist></Waitlist>}></Route>
       <Route path='/dashboard/profile' element={<MyProfile></MyProfile>}></Route>
+
+
+
+      {/* EVENTOVI */}
+      <Route path='/dashboard/event/configuration' element={<DashboardEventConfig></DashboardEventConfig>}></Route>
+      <Route path='/dashboard/event/triggers' element={<DashboardEventTriggers></DashboardEventTriggers>}></Route>
+
+
+
     </Routes>
     </BrowserRouter>
     </>

@@ -67,7 +67,7 @@ const sidebarItems:sidebarItem[] = [
    {
     icon: <SquareDashedMousePointer></SquareDashedMousePointer>,
     label: 'Event Triggers',
-    link: '/',
+    link: '/dashboard/event/triggers',
     parent: 'events'
    },
 
@@ -102,7 +102,7 @@ const sidebarItems:sidebarItem[] = [
    {
     icon: <Bolt></Bolt>,
     label: 'Configuration',
-    link: '/',
+    link: '/dashboard/event/configuration',
     parent: 'events'
    },
 
@@ -148,7 +148,7 @@ const MainContent:React.FC<Props> = ({enforceProtection, children}) => {
        <div className="pl-7"> <div className="inline-grid grid-cols-1 gap-2">
             {sidebarItems.filter(item => item.parent === 'events').map(item=>{
                 return (
-                    <Button variant={'outline'} className='flex justify-start'>{item?.icon}{item.label}</Button>
+                    <Button onClick={()=>{location.href = item.link}} variant={'outline'} className={`flex justify-start ${item.link === location.pathname ? ('border-r-3 border-r-black') : ('')}`}>{item?.icon}{item.label}</Button>
                 )
             })}
             
