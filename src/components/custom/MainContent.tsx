@@ -74,7 +74,7 @@ const sidebarItems:sidebarItem[] = [
    {
     icon: <MapPin></MapPin>,
     label: 'Geolocation',
-    link: '/',
+    link: '/dashboard/event/geolocation',
     parent: 'events'
    },
 
@@ -87,8 +87,8 @@ const sidebarItems:sidebarItem[] = [
 
    {
     icon: <Star></Star>,
-    label: 'Top Pages',
-    link: '/',
+    label: 'Top Events',
+link: '/dashboard/event/top',
     parent: 'events'
    },
 

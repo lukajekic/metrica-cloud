@@ -19,6 +19,8 @@ import MyProfile from './pages/MyProfile';
 import DashboardPagesTop from './pages/DashboardPagesTop/DashboardPagesTop';
 import DashboardEventConfig from './pages/DashboardEventConfig/DashboardEventConfig';
 import DashboardEventTriggers from './pages/DashboardEventTriggers/DashboardEventTriggers';
+import DashboardEventsTop from './pages/DashboardEventsTop/DashboardEventsTop';
+import DashboardEventGeolocation from './pages/DashboardEventGeolocation/DashboardEventGeolocation';
 
 function App() {
   return (
@@ -47,8 +49,8 @@ function App() {
       {/* EVENTOVI */}
       <Route path='/dashboard/event/configuration' element={<DashboardEventConfig></DashboardEventConfig>}></Route>
       <Route path='/dashboard/event/triggers' element={<DashboardEventTriggers></DashboardEventTriggers>}></Route>
-
-
+      <Route path='/dashboard/event/top' element={<DashboardEventsTop></DashboardEventsTop>}></Route>
+      <Route path='/dashboard/event/geolocation' element={<DashboardEventGeolocation></DashboardEventGeolocation>}></Route>
 
     </Routes>
     </BrowserRouter>
