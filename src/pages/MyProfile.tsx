@@ -19,12 +19,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Trash } from 'lucide-react'
+import { AlertCircleIcon, LogOut, Trash } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { Progress } from '@/components/ui/progress'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp'
 import axios from 'axios'
 import { toast } from 'sonner'
+import { Tooltip } from 'react-tooltip'
+import MetricaTooltip from '@/components/custom/tooltip'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 
 const MyProfile = () => {
   const {userData, setUserData, loading} = useUserData()
@@ -36,12 +39,24 @@ const [deletionID, setDeletionID] = useState("")
 const [deleteModalView, setModalView] = useState("hold")
 const [deletemOdalOpen, setDelteModalOpen] = useState(false)
 const [otp, setOTP] = useState("")
-
-
+const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
+const [delAccOTP, setDelAccOTP] = useState("")
 
 const [projects, setProjects] = useState([])
 
-
+const Logout = async() =>{
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND}/metrica/user/logout`)
+    if (response.status === 200 ){
+      toast.success("Logged out successfuly.")
+      location.href = "/"
+    } else{
+      toast.error("Error while attempting logout.")
+    }
+  } catch (error) {
+    toast.error("Error while attempting logout.")
+  }
+}
 
 
 
@@ -90,6 +105,33 @@ useEffect(()=>{
 
  deletefunc()
 }, [deleteModalView, otp])
+
+useEffect(()=>{
+const deleteACC = async() =>{
+  if (delAccOTP.length === 6) {
+    try {
+   const response = await axios.post(`${import.meta.env.VITE_BACKEND}/metrica/user/delete`, {
+      otp: delAccOTP
+    })
+
+    if (response.status === 200) {
+if (response.data.redirect) {
+  location.href = response?.data?.redirect
+} else {
+  location.href = "/"
+}
+    }
+    
+  } catch (error) {
+    if (error.response.status === 400) {
+      toast.error(error?.response?.data?.message, {position: 'top-center'})
+    }
+  }
+  }
+}
+
+deleteACC()
+}, [delAccOTP])
 
 const stopHold = () => {
   if (holdInterval) {
@@ -145,7 +187,18 @@ const [initials, setInitials] = useState("")
   <H2>{userData?.name}</H2>
   <H4>{userData?.projects?.length} Projects</H4>
 {/*   <P>Joined on XX.XX.XXXX.</P>
- */}</div>
+ */}
+  <div className="flex gap-3 mt-3 items-center">
+  <Button variant={'destructive'} onClick={()=>{Logout()}}><LogOut></LogOut>Log Out</Button>
+    <Button onClick={()=>{setOpenDeleteDialog(true)}} disabled={projects.length > 0} variant={'ghost'} className='border-1 border-red-700 text-red-700 hover:bg-red-700 hover:text-white'><Trash></Trash>Delete Account</Button>
+
+  {projects.length > 0 && <MetricaTooltip text='All projects must be deleted before Account deletion.'/>}
+    
+ </div>
+ </div>
+ 
+
+
               </div>
             </DashboardBlock>
         </section>
@@ -215,7 +268,64 @@ const [initials, setInitials] = useState("")
           </DialogFooter>
         </DialogContent>
       </form>
-    </Dialog>    </>
+    </Dialog>    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <Dialog open={openDeleteDialog}>
+      <form>
+
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Delete Account</DialogTitle>
+            <DialogDescription className='mt-2'>
+              <Alert variant={'destructive'} className='w-full'>
+                <AlertCircleIcon></AlertCircleIcon>
+                <AlertTitle className='font-bold'>Info</AlertTitle>
+                <AlertDescription>When you enter your OTP code, without any further confirmation, your Account will be deleted.</AlertDescription>
+              </Alert>
+            </DialogDescription>
+          </DialogHeader>
+
+
+<>
+<InputOTP onChange={(e)=>{setDelAccOTP(e)}} maxLength={6}>
+      <InputOTPGroup>
+        <InputOTPSlot index={0} />
+        <InputOTPSlot index={1} />
+        <InputOTPSlot index={2} />
+         <InputOTPSlot index={3} />
+        <InputOTPSlot index={4} />
+        <InputOTPSlot index={5} />
+      </InputOTPGroup>
+     
+    </InputOTP>
+
+</>
+
+
+
+    
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline" onClick={()=>{setOpenDeleteDialog(false)}}>Cancel</Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </form>
+    </Dialog> 
+    
+    
+    </>
   )
 }
 

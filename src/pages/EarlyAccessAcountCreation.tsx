@@ -150,7 +150,7 @@ useEffect(()=>{
 <>
   <img src={QRCodeData} className='w-30 h-30'></img>
                 <Button variant={'destructive'} className='w-fit self-end' onClick={()=>{[setFormState('welcome'), setTimeout(() => {
-                  location.href = '/dashboard/home'  
+                  location.href = '/dashboard/projects/create'  
                 }, 5000)]}}>Continue</Button></>
                 ): (<></>)}
               

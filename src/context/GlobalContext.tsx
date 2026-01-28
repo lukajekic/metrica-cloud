@@ -93,9 +93,9 @@ export function ProjectsGlobalProvider({children}) {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND}/metrica/project/get`)
       if (response.status === 200 && response.data && response.data.length > 0) {
         setProjectsGlobal(response.data)
-      } else if (location.pathname !== '/dashboard/projects/create' && location.pathname.includes('dashboard')) {
+      } /* else if (location.pathname !== '/dashboard/projects/create' && location.pathname.includes('dashboard')) {
         location.href = '/dashboard/projects/create'
-      }
+      } */
     } catch (error) {
       console.error(error)
       toast("Couldn't fetch Projects - ProjectsGlobalContext")

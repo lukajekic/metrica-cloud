@@ -81,7 +81,7 @@ const sidebarItems:sidebarItem[] = [
    {
     icon: <Crown></Crown>,
     label: 'Dominance',
-    link: '/',
+    link: '/dashboard/event/dominance',
     parent: 'events'
    },
 

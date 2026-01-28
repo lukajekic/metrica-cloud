@@ -21,6 +21,7 @@ import DashboardEventConfig from './pages/DashboardEventConfig/DashboardEventCon
 import DashboardEventTriggers from './pages/DashboardEventTriggers/DashboardEventTriggers';
 import DashboardEventsTop from './pages/DashboardEventsTop/DashboardEventsTop';
 import DashboardEventGeolocation from './pages/DashboardEventGeolocation/DashboardEventGeolocation';
+import DashboardEventDominance from './pages/DashboardEventDominance/DashboardEventDominance';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
       <Route path='/dashboard/event/triggers' element={<DashboardEventTriggers></DashboardEventTriggers>}></Route>
       <Route path='/dashboard/event/top' element={<DashboardEventsTop></DashboardEventsTop>}></Route>
       <Route path='/dashboard/event/geolocation' element={<DashboardEventGeolocation></DashboardEventGeolocation>}></Route>
+      <Route path='/dashboard/event/dominance' element={<DashboardEventDominance></DashboardEventDominance>}></Route>
 
     </Routes>
     </BrowserRouter>
