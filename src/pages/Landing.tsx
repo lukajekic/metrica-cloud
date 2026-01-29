@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { H1, H3, P } from '@/components/ui/typography'
-import { AlertCircleIcon, Bolt, ChartSpline, Check, Eye, Github, Key, Linkedin, Mail, PanelsTopLeft, User } from 'lucide-react'
+import { AlertCircleIcon, Atom, Bolt, ChartSpline, Check, Eye, Github, Key, Linkedin, Mail, PanelsTopLeft, User } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
  import signature from '../assets/signature.png';
 import emailjs from 'emailjs-com';
@@ -27,6 +27,7 @@ import axios from 'axios'
 import { Spinner } from '@/components/ui/spinner'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { useTheme } from 'next-themes'
+import { AlertDialogAction } from '@/components/ui/alert-dialog'
 
 const Landing = () => {
   const headerRef = useRef(null);
@@ -54,6 +55,17 @@ const Landing = () => {
     acceptsubmitbtn: false
   })
 
+
+  const accessDemo = async()=>{
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND}/metrica/user/demo`)
+      if (response.status === 200) {
+        location.href = '/dashboard/home'
+      }
+    } catch (error) {
+      toast.error("Error while accessing Demo instance.", {position: "top-center"})
+    }
+  }
   const SetBTNLoadingStatus = (targetID:string, status:boolean)=> {
     if (!targetID || status === undefined) {
         return
@@ -662,7 +674,19 @@ LinkedIn
       </DialogHeader>
 
 
+<Alert className='mt-3'>
+  <Atom />
+  <AlertTitle className='font-bold'>Try Metrica Cloud!</AlertTitle>
+  <AlertDescription>
+    Access Demo Dashboard without an account and experience potentials of Metrica integration.
+    <div className="flex flex-col items-end w-full mt-3">
+    <Button className='w-fit' onClick={()=>{accessDemo()}}>Try Now</Button>
+  </div>
+  
+  </AlertDescription>
 
+  
+</Alert>
       {wrongCredentials && (
         <Alert variant="destructive" className='mt-2'>
         <AlertCircleIcon />
