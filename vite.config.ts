@@ -12,9 +12,10 @@ export default defineConfig({
   },
   server: {
     https: {
-      key: fs.readFileSync('./certs/key.pem'), // putanja do tvog key
-      cert: fs.readFileSync('./certs/cert.pem'),    // putanja do tvog cert
+      key: fs.readFileSync('./certs/key.pem'),
+      cert: fs.readFileSync('./certs/cert.pem'), 
+      //self signovani  sertifikati za lokalni https u razvoju zbog API-ja i tokena.
     },
-    port: 5173, // ili bilo koji port koji koristiš
+    port: 5173,
   }
 })

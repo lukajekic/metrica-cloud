@@ -22,6 +22,8 @@ import DashboardEventTriggers from './pages/DashboardEventTriggers/DashboardEven
 import DashboardEventsTop from './pages/DashboardEventsTop/DashboardEventsTop';
 import DashboardEventGeolocation from './pages/DashboardEventGeolocation/DashboardEventGeolocation';
 import DashboardEventDominance from './pages/DashboardEventDominance/DashboardEventDominance';
+import DashboardPageTrends from './pages/DashboardPageTrends/DashboardPageTrends';
+import DashboardEventTrends from './pages/DashboardEventTrends/DashboardEventTrends';
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
       <Route path='/dashboard/page/geolocation' element={<DashboardPageGeolocation></DashboardPageGeolocation>}></Route>
       <Route path='/dashboard/page/dominance' element={<DashboardPageDominance></DashboardPageDominance>}></Route>
       <Route path='/dashboard/page/top' element={<DashboardPagesTop></DashboardPagesTop>}></Route>
+      <Route path='/dashboard/page/trends' element={<DashboardPageTrends></DashboardPageTrends>}></Route>
+
       <Route path='/dashboard/dev' element={<p>dev</p>}></Route>
       <Route path='/dashboard/projects/create' element={<CreateProject></CreateProject>}></Route>
       <Route path='/apikeyprint' element={<PrintApiKey></PrintApiKey>}></Route>
@@ -53,6 +57,7 @@ function App() {
       <Route path='/dashboard/event/top' element={<DashboardEventsTop></DashboardEventsTop>}></Route>
       <Route path='/dashboard/event/geolocation' element={<DashboardEventGeolocation></DashboardEventGeolocation>}></Route>
       <Route path='/dashboard/event/dominance' element={<DashboardEventDominance></DashboardEventDominance>}></Route>
+      <Route path='/dashboard/event/trends' element={<DashboardEventTrends></DashboardEventTrends>}></Route>
 
     </Routes>
     </BrowserRouter>

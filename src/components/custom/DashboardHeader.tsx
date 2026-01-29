@@ -119,8 +119,11 @@ setdropdownactiveid(ProjectsGlobal.filter(item => item._id === activeproject)[0]
                     <a href="/dashboard/waitlist"><Button className='mr-2' variant={'outline'}><Clipboard/>Waitlist({waitlistcount})</Button></a>
                   )}
   <div className="flex flex-col items-end h-auto">
-    <p id="profileroles" className='text-sm'>{userData.roles}</p>
-    <p id="profilename" className='text-xl font-semibold'>{userData.name}</p>
+    <div id="profileroles" className='text-sm flex inline-flex items-center gap-1'>{userData?.roles?.map((role, index) => {
+      
+      return (<span key={index} className='px-2 py-1/2 rounded bg-gray-100 border-1 border-gray-700/20'>{role.charAt(0).toUpperCase() + role.slice(1)}</span>)
+    })}</div>
+    <p id="profilename" className='text-xl font-semibold'>{userData?.name}</p>
   </div>
 
   <Avatar className="h-[calc(1.25rem+1.75rem-5px)] w-auto">

@@ -49,7 +49,7 @@ const sidebarItems:sidebarItem[] = [
    {
     icon: <TrendingUp></TrendingUp>,
     label: 'Trends',
-    link: '/dashboard/pages/trends',
+    link: '/dashboard/page/trends',
     parent: 'pages'
    },
 
@@ -95,7 +95,7 @@ link: '/dashboard/event/top',
    {
     icon: <TrendingUp></TrendingUp>,
     label: 'Trends',
-    link: '/',
+    link: '/dashboard/event/trends',
     parent: 'events'
    },
 
