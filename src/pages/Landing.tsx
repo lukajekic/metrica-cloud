@@ -28,6 +28,7 @@ import { Spinner } from '@/components/ui/spinner'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { useTheme } from 'next-themes'
 import { AlertDialogAction } from '@/components/ui/alert-dialog'
+import { CreateMetricaView, CreateMetricaEvent } from "@lukajekic/metrica-sdk";
 
 const Landing = () => {
   const headerRef = useRef(null);
@@ -38,6 +39,14 @@ const Landing = () => {
     email: "",
     password: ""
   })
+
+
+  /* METRICA PAGE VIEW */
+
+  useEffect(()=>{
+    CreateMetricaView("Metrica.nBEgFesXmFSx5CfKINchCIBRJkA7ZX2")
+  }, [])
+
 
     const [acceptData, setAcceptData] = useState({
     email: "",
@@ -60,6 +69,7 @@ const Landing = () => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND}/metrica/user/demo`)
       if (response.status === 200) {
+        await CreateMetricaView("Metrica.nBEgFesXmFSx5CfKINchCIBRJkA7ZX2", "697cc51988b0436eeea2a810")
         location.href = '/dashboard/home'
       }
     } catch (error) {
@@ -139,6 +149,7 @@ const HandleDashboardOpen = async()=>{
                 setSubscriptionResponse(serverresponse?.data?.message)
                 setSubscribed(true)
                 SetBTNLoadingStatus('subscribebtn', false)
+                CreateMetricaEvent("Metrica.nBEgFesXmFSx5CfKINchCIBRJkA7ZX2", "697cc50a88b0436eeea2a809")
               }
             }
             

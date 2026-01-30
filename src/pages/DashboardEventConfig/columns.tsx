@@ -27,6 +27,11 @@ export const columns: ColumnDef<Pagecolumns>[] = [
   },
 
   {
+    accessorKey: "_id",
+    header: "Event ID"
+  },
+
+  {
     accessorKey: 'options',
     header: 'Options',
     cell: ({row})=>{
