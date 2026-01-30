@@ -22,7 +22,7 @@ const CreateProject = () => {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND}/metrica/project`, projectData)
 
       if (response.status === 201) {
-        CreateMetricaEvent("Metrica.nBEgFesXmFSx5CfKINchCIBRJkA7ZX2", "697cc53088b0436eeea2a817")
+        await CreateMetricaEvent("Metrica.nBEgFesXmFSx5CfKINchCIBRJkA7ZX2", "697cc53088b0436eeea2a817")
         console.log('OK')
         const data = response.data
         const apikey = data.apiKey
