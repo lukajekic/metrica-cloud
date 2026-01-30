@@ -69,7 +69,7 @@ const Landing = () => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND}/metrica/user/demo`)
       if (response.status === 200) {
-        await CreateMetricaView("Metrica.nBEgFesXmFSx5CfKINchCIBRJkA7ZX2", "697cc51988b0436eeea2a810")
+        await CreateMetricaEvent("Metrica.nBEgFesXmFSx5CfKINchCIBRJkA7ZX2", "697cc51988b0436eeea2a810")
         location.href = '/dashboard/home'
       }
     } catch (error) {
