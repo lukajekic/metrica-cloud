@@ -15,8 +15,21 @@ import { useProjectsGlobal, useUserData } from '@/context/GlobalContext'
 import axios from 'axios'
 import { toast } from 'sonner'
 import { Button } from '../ui/button'
-import { Clipboard, PlusSquare } from 'lucide-react'
-
+import { Clipboard, ClipboardIcon, LogOut, PlusSquare, SquareUserRound } from 'lucide-react'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 
 const DashboardHeader = () => {
@@ -78,6 +91,27 @@ setdropdownactiveid(ProjectsGlobal.filter(item => item._id === activeproject)[0]
   }
 }, [ProjectsGlobal]);
   
+
+
+
+
+
+const Logout = async() =>{
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND}/metrica/user/logout`)
+    if (response.status === 200 ){
+      toast.success("Logged out successfuly.")
+      location.href = "/"
+    } else{
+      toast.error("Error while attempting logout.")
+    }
+  } catch (error) {
+    toast.error("Error while attempting logout.")
+  }
+}
+
+
+
   return (
     <div className='dashboard-header w-full border-b-1 border-b-gray-700/20 h-[60px] fixed  left-0 top-0 right-0 bg-white'>
       {demo && (
@@ -112,12 +146,17 @@ setdropdownactiveid(ProjectsGlobal.filter(item => item._id === activeproject)[0]
 
 
 
-                {/* right side */}
+          
 
-                <div onClick={()=>{location.href = '/dashboard/profile'}} className='flex gap-3 items-center h-fit hover:cursor-pointer'>
+
+{/* DROPDOWN */}
+<DropdownMenu>
+      
+        <div  className='flex gap-3 items-center h-fit hover:cursor-pointer'>
                   {userData?.roles?.includes('admin') && (
-                    <a href="/dashboard/waitlist"><Button className='mr-2' variant={'outline'}><Clipboard/>Waitlist({waitlistcount})</Button></a>
+                    <a onClick={(e)=>{e.stopPropagation()}} href="/dashboard/waitlist"><Button onClick={(e)=>{e.stopPropagation()}}  className='mr-2' variant={'outline'}><Clipboard/>Waitlist({waitlistcount})</Button></a>
                   )}
+                  <DropdownMenuTrigger asChild>
   <div className="flex flex-col items-end h-auto">
     <div id="profileroles" className='text-sm flex inline-flex items-center gap-1'>{userData?.roles?.map((role, index) => {
       
@@ -125,12 +164,37 @@ setdropdownactiveid(ProjectsGlobal.filter(item => item._id === activeproject)[0]
     })}</div>
     <p id="profilename" className='text-xl font-semibold'>{userData?.name}</p>
   </div>
-
+</DropdownMenuTrigger>
+<DropdownMenuTrigger asChild>
   <Avatar className="h-[calc(1.25rem+1.75rem-5px)] w-auto">
     <AvatarImage />
     <AvatarFallback className='aspect-square text-center font-bold border-1 border-gray-700/20'><span className='mt-1'>{initials}</span></AvatarFallback>
   </Avatar>
+  </DropdownMenuTrigger>
 </div>
+      
+      <DropdownMenuContent className="w-40 mt-3" align="end">
+        <DropdownMenuGroup>
+          <DropdownMenuItem onClick={()=>{location.href = "/dashboard/profile"}} className='p-0'>
+          <DropdownMenuLabel className='inline flex items-center gap-3 '><SquareUserRound className='size-5 text-gray-700'></SquareUserRound>My Profile</DropdownMenuLabel>
+          </DropdownMenuItem>
+   {userData?.roles?.includes('admin') && (
+                    <DropdownMenuItem onClick={()=>{location.href = "/dashboard/waitlist"}} className='p-0'>
+          <DropdownMenuLabel className='inline flex items-center gap-3 '><ClipboardIcon className='size-5 text-gray-700'></ClipboardIcon><span>Waitlist ({waitlistcount})</span></DropdownMenuLabel>
+          </DropdownMenuItem>
+                  )}
+          
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem onClick={()=>{Logout()}} className='p-0'>
+          <DropdownMenuLabel className='inline flex items-center gap-3 '><LogOut className='size-5 text-gray-700'></LogOut>Log Out</DropdownMenuLabel>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+        
+      </DropdownMenuContent>
+    </DropdownMenu>
+{/* DROPDOWN END */}
 
 
 

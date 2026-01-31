@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import React, { useEffect, useRef, useState } from 'react'
 import { CountriesList } from '@/data/countries'
 import { Button } from '@/components/ui/button'
-import { FunnelPlus, FunnelX, User } from 'lucide-react'
+import { FunnelPlus, FunnelX, Maximize, Minimize, User } from 'lucide-react'
 
 
 
@@ -48,9 +48,22 @@ const chartConfig = {
 } satisfies ChartConfig
 
 
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
 
 /* CHART IMPORTS END */
 const DashboardEventTrends = () => {
+        const [openFullScreen, setOpenFullScreen] = useState(false)
+    
     const chartblockref = useRef(null)
 /*     const [chartData, setChartData] = useState()
  */    const [filtered, setFiltered] = useState(false)
@@ -273,6 +286,8 @@ const clearFilters = ()=>{
 
                 <Button type='submit'><FunnelPlus></FunnelPlus> Apply Filters</Button>
                 <div className='flex-1'></div>
+                                <Button type='button' variant={'ghost'} onClick={()=>{setOpenFullScreen(true)}}><Maximize></Maximize> Open Full Screen</Button>
+
                 <Button type='button' variant={'ghost'} onClick={()=>{clearFilters()}}><FunnelX></FunnelX> Clear Filters</Button>
 
 
@@ -350,6 +365,90 @@ const clearFilters = ()=>{
 </div>
     </div>            
     </MainContent>
+
+
+
+
+
+
+
+
+
+    
+       {/* FULL SCREEN */}
+    <Dialog  open={openFullScreen}>
+          <form>
+            
+            <DialogContent className="min-w-[calc(100%-100px)] h-[800px] [&>button]:hidden">
+           <DialogClose  asChild={true}>
+                    <Minimize className="flex flex-row justify-self-end" onClick={() => setOpenFullScreen(false)}/>
+                </DialogClose>
+    <ResponsiveContainer width={"100%"} height={500}>
+    <ChartContainer 
+      config={chartConfig} 
+      className="h-full w-full"
+    >
+      <LineChart
+        accessibilityLayer
+        data={chartData}
+        margin={{ left: 12, right: 12 }}
+      >
+        <CartesianGrid vertical={false} />
+        <XAxis
+          dataKey="date"
+          tickLine={false}
+          axisLine={false}
+          tickMargin={8}
+          tickFormatter={(value) => {const date = new Date(value); return `${date.getUTCMonth() + 1}. ${date.getUTCFullYear()}.`}}
+        />
+        <ChartTooltip cursor={false} content={<ChartTooltipContent labelFormatter={(value) => {const date = new Date(value); return `${date.getUTCDate()}. ${date.getUTCMonth() + 1}.`}} />} />
+      {/*   <Line
+          dataKey="views.RS"
+          type="monotone"
+          stroke="var(--color-desktop)"
+          strokeWidth={2}
+          dot={false}
+          connectNulls={true}
+        />
+        <Line
+          dataKey="views.HR"
+          type="monotone"
+          stroke="var(--color-mobile)"
+          strokeWidth={2}
+          dot={false}
+          connectNulls={true}
+        /> */}
+
+       {filtered ? (
+     <Line
+          dataKey={`triggers.${filters.country}`}
+          type="monotone"
+          stroke={"var(--color-mobile)"}
+          strokeWidth={2}
+          dot={false}
+          connectNulls={true}
+        /> 
+) : (
+    participatingCountries.map((item, index) => (
+       <Line
+          dataKey={`triggers.${item}`}
+          type="monotone"
+          stroke={index % 2 == 0 ? "var(--color-mobile)" : "var(--color-desktop)"}
+          strokeWidth={2}
+          dot={false}
+          connectNulls={true}
+        /> 
+    ))
+)}
+
+      </LineChart>
+    </ChartContainer>
+  </ResponsiveContainer>
+    
+            </DialogContent>
+          </form>
+        </Dialog>
+       {/* FULL SCREEN END */}
     </>
   )
 }
